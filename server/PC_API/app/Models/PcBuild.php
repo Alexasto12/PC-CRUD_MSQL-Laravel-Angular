@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class PcBuild extends Model
 {
     protected $table = 'pc_build';
+    protected $fillable = ['name', 'image'];
 
     public function components(): BelongsToMany
     {

@@ -22,3 +22,9 @@ Route::get('/builds/{id}', [PcBuild::class, 'show']);
 Route::post('/builds', [PcBuild::class, 'store']);
 Route::put('/builds/{id}', [PcBuild::class, 'update']);
 Route::delete('/builds/{id}', [PcBuild::class, 'destroy']);
+
+// PC Build Component Relationship routes
+Route::post('/builds/{buildId}/components/{componentId}', [PcBuild::class, 'attachComponent']);
+Route::delete('/builds/{buildId}/components/{componentId}', [PcBuild::class, 'detachComponent']);
+
+
