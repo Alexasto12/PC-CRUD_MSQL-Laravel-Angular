@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      {{listTitle}}
+    </div>
+    <div *ngIf="pcBuilds.length==0">
+      <h4>Not found</h4>
+    </div>
+    <div *ngIf="pcBuilds.length>0" class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+        <th>Foto</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Components</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pcBuild of pcBuilds">
+          <td>{{pcBuild.image}}</td>
+          <td>{{pcBuild.name}}</td>
+          <td>{{pcBuild.price}}</td>
+          <td>{{pcBuild.components.stringify}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
