@@ -20,7 +20,9 @@
           <td>{{pcBuild.image}}</td>
           <td>{{pcBuild.name}}</td>
           <td>{{pcBuild.price}}</td>
-          <td>{{pcBuild.components.stringify}}</td>
+            <td>
+            <span *ngFor="let component of objectValues(pcBuild.components)">{{component.name}}<br> </span>
+            </td>
         </tr>
       </tbody>
     </table>

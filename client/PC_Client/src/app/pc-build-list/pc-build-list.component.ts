@@ -11,6 +11,7 @@ import { PcBuildDataService } from '../pc-build-data.service';
 export class PcBuildListComponent {
 listTitle = 'PC Build List';
 pcBuilds: IpcBuild[]=[];
+objectValues = Object.values;
 constructor(private pcBuildsService: PcBuildDataService
 ){ }
       ngOnInit() {
