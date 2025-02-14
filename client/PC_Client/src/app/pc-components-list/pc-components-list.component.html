@@ -1,1 +1,26 @@
-<p>pc-components-list works!</p>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      {{listTitle}}
+    </div>
+    <div *ngIf="pcComponents.length==0">
+      <h4>Not found</h4>
+    </div>
+    <div *ngIf="pcComponents.length>0" class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pcComponent of pcComponents">
+          <td>{{pcComponent.name}}</td>
+          <td>{{pcComponent.price}}</td>
+          <td>{{pcComponent.type}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
