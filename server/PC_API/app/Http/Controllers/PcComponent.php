@@ -17,6 +17,11 @@ class PcComponent extends Controller
         return PcComponentModel::findOrFail($id);
     }
 
+    public function showByType($type)
+    {
+        return PcComponentModel::where('type', $type)->get();
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

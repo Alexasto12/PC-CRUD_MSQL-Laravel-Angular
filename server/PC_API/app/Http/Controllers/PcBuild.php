@@ -23,6 +23,7 @@ class PcBuild extends Controller
         $build->price = $build->setPrice();
         return $build;
     }
+
     
     public function attachComponent($buildId, $componentId)
     {
