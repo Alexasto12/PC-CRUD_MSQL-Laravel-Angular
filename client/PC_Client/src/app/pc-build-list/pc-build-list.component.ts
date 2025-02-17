@@ -16,7 +16,7 @@ constructor(private pcBuildsService: PcBuildDataService
 ){ }
       ngOnInit() {
         console.log("Listat d'builds inicialiced");
-        this.pcBuildsService.getDades().subscribe(resp => {
+        this.pcBuildsService.getData().subscribe(resp => {
         // accedim al body de la resposta HTTP.+
         console.log(resp.body);
         if (resp.body) {
