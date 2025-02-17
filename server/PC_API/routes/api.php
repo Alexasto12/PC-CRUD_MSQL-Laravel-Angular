@@ -19,9 +19,11 @@ Route::delete('/components/{id}', [PcComponent::class, 'destroy']);
 // PC Build routes
 Route::get('/builds', [PcBuild::class, 'index']);
 Route::get('/builds/{id}', [PcBuild::class, 'show']);
+Route::get('/builds/{type}', [PcBuild::class, 'showByType']);
 Route::post('/builds', [PcBuild::class, 'store']);
 Route::put('/builds/{id}', [PcBuild::class, 'update']);
 Route::delete('/builds/{id}', [PcBuild::class, 'destroy']);
+
 
 // PC Build Component Relationship routes
 Route::post('/builds/{buildId}/components/{componentId}', [PcBuild::class, 'attachComponent']);
