@@ -71,9 +71,19 @@
             <select class="form-control" formControlName="psu" id="psu">
                 <option value="">Select PSU</option>
                 <option *ngFor="let psu of psus" [value]="psu.id">
-                    {{psu.name}} - ${{psu.price}}
+                    {{psu.name}} - {{psu.price}}€
                 </option>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="buildImage">Build Image</label>
+            <input 
+                type="file" 
+                class="form-control" 
+                id="buildImage" 
+                (change)="onImageSelect($event)"
+                accept="image/*">
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Update Build</button>

@@ -136,3 +136,14 @@
     filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.5));
   }
 }
+
+.navbar-text {
+  color: #ecf0f1 !important;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGlow 2s ease-in-out infinite;
+}

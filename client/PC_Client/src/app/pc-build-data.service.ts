@@ -20,11 +20,11 @@ export class PcBuildDataService {
   public deleteBuild(id: string): Observable<any> {
     return this._http.delete('api/builds/' + id);
   }
-  public createBuild(pcBuild: any ): Observable<IpcBuild> {
-    return this._http.post<IpcBuild>('api/builds', pcBuild);
+  public createBuild(formData: FormData): Observable<any> {
+    return this._http.post('api/builds', formData);
   }
-  public editBuild(pcBuild: any, id:any): Observable<IpcBuild> {
-    return this._http.put<IpcBuild>('api/builds/' + id, pcBuild);
+  public editBuild(formData: FormData, id: any): Observable<any> {
+    return this._http.post(`api/builds/${id}`, formData);
   }
 
 public getAllComponents(): Observable<HttpResponse<IpcComponent[]>>  {

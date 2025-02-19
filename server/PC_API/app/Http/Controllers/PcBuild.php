@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\ValidationException;
 use App\Models\PcBuild as PcBuildModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PcBuild extends Controller
 {
@@ -39,31 +41,53 @@ class PcBuild extends Controller
         return $build->load('components');
     }
     
-    public function store(Request $request)
+    public function store(Request $request) 
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'components' => 'required|array'
-        ]);
-
-        DB::beginTransaction();
         try {
-            $build = PcBuildModel::create([
-                'name' => $validated['name'],
+            $validated = $request->validate([
+                'name' => 'required|string|min:1',
+                'components' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
-            $build->components()->attach($validated['components']);
+            $components = json_decode($validated['components'], true);
+            if (empty($components)) {
+                return response()->json([
+                    'error' => 'At least one component is required'
+                ], 422);
+            }
+
+            DB::beginTransaction();
+
+            $build = new PcBuildModel();
+            $build->name = $validated['name'];
+
+            if ($request->hasFile('image')) {
+                $build->image = $request->file('image')->store('builds', 'public');
+            }
+
+            $build->save();
+            $build->components()->attach($components);
+            
             DB::commit();
             
             $build->load('components');
             $build->price = $build->setPrice();
-            
+
             return response()->json($build, 201);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => $e->errors()
+            ], 422);
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json([
+                'error' => 'Failed to create build'
+            ], 500);
         }
     }
+
     public function destroy($id)
     {
         $build = PcBuildModel::findOrFail($id);
@@ -74,29 +98,52 @@ class PcBuild extends Controller
 
     public function update(Request $request, $id)
     {
-        $build = PcBuildModel::findOrFail($id);
-        
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'components' => 'required|array'
-        ]);
-
-        DB::beginTransaction();
         try {
-            $build->update([
-                'name' => $validated['name'],
+            $validated = $request->validate([
+                'name' => 'required|string|min:1',
+                'components' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
-            $build->components()->sync($validated['components']);
+            // Validate components
+            $components = json_decode($validated['components'], true);
+            if (empty($components)) {
+                return response()->json([
+                    'error' => 'At least one component is required'
+                ], 422);
+            }
+
+            DB::beginTransaction();
+
+            $build = PcBuildModel::findOrFail($id);
+            $build->name = $validated['name'];
+
+            if ($request->hasFile('image')) {
+                if ($build->image) {
+                    Storage::disk('public')->delete($build->image);
+                }
+                $build->image = $request->file('image')->store('builds', 'public');
+            }
+
+            $build->save();
+            $build->components()->sync($components);
+            
             DB::commit();
             
             $build->load('components');
             $build->price = $build->setPrice();
-            
-            return response()->json($build, 200);
+
+            return response()->json($build);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'error' => $e->errors()
+            ], 422);
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json([
+                'error' => 'Failed to update build'
+            ], 500);
         }
     }
 }

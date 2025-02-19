@@ -19,6 +19,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Image</th>
           <th>Name</th>
           <th>Price</th>
           <th>Components</th>
@@ -26,14 +27,21 @@
       </thead>
       <tbody>
         <tr *ngFor="let pcBuild of pcBuilds">
-          <td>{{pcBuild.name}}
-            <button (click)="deleteBuild(pcBuild.id)" class="btn btn-danger">ELIMINAR</button>
-            <button [routerLink]="['/edit-build/',pcBuild.id]" class="btn btn-warning">EDITAR</button>
+          <td class="image-cell">
+            <img *ngIf="pcBuild.image" 
+                 [src]="'http://localhost:8000/storage/' + pcBuild.image" 
+                 alt="Build Image"
+                 class="build-image">
+            <div *ngIf="!pcBuild.image" class="no-image">No Image</div>
           </td>
-          <td>{{pcBuild.price}}</td>
-            <td>
+          <td>{{pcBuild.name}}
+            <button [routerLink]="['/edit-build/',pcBuild.id]" class="btn btn-warning">UPDATE</button>
+            <button (click)="deleteBuild(pcBuild.id)" class="btn btn-danger">DELETE</button>
+          </td>
+          <td>{{pcBuild.price}}€</td>
+          <td>
             <span *ngFor="let component of objectValues(pcBuild.components)">{{component.name}}<br> </span>
-            </td>
+          </td>
         </tr>
       </tbody>
     </table>

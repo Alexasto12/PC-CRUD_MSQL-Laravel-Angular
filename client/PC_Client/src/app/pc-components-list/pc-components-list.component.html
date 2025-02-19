@@ -29,11 +29,11 @@
                     <td>
                         {{pcComponent.name}}
                         
+                        <button [routerLink]="['/edit-component/',pcComponent.id]" class="btn btn-warning">UPDATE</button>
                         <button (click)="deleteComponent(pcComponent.id)" class="btn btn-danger">DELETE</button>
                        
-                        <button [routerLink]="['/edit-component/',pcComponent.id]" class="btn btn-warning">UPDATE</button>
                     </td>
-                    <td>{{pcComponent.price}}</td>
+                    <td>{{pcComponent.price}}€</td>
                     <td>{{pcComponent.type}}</td>
                 </tr>
             </tbody>

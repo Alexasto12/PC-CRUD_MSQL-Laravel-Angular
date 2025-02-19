@@ -149,6 +149,36 @@ h4 {
   margin-left: 0.5rem;
 }
 
+.image-cell {
+  width: 120px;
+  padding: 10px;
+}
+
+.build-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.build-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+}
+
+.no-image {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #34495e;
+  border-radius: 8px;
+  color: #95a5a6;
+  font-size: 0.8rem;
+}
+
 @keyframes tableFadeIn {
   from {
     opacity: 0;

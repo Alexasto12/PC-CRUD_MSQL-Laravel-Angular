@@ -23,6 +23,7 @@ export class PcBuildsEditComponent {
   storages: IpcComponent[] = [];
   cases: IpcComponent[] = [];
   psus: IpcComponent[] = [];
+  selectedImage: File | null = null;
 
   constructor(
     private ruta : ActivatedRoute, 
@@ -69,27 +70,33 @@ export class PcBuildsEditComponent {
     console.log(this.id);
   }
 
-
-  
+  onImageSelect(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+    }
+  }
 
   onSubmit(build: any) {
-    this.components = [];
+    const components = [];
     
-    if (build.cpu) this.components.push(build.cpu);
-    if (build.gpu) this.components.push(build.gpu);
-    if (build.motherboard) this.components.push(build.motherboard);
-    if (build.memory) this.components.push(build.memory);
-    if (build.storage) this.components.push(build.storage);
-    if (build.case) this.components.push(build.case);
-    if (build.psu) this.components.push(build.psu);
+    if (build.cpu) components.push(build.cpu);
+    if (build.gpu) components.push(build.gpu);
+    if (build.motherboard) components.push(build.motherboard);
+    if (build.memory) components.push(build.memory);
+    if (build.storage) components.push(build.storage);
+    if (build.case) components.push(build.case);
+    if (build.psu) components.push(build.psu);
 
+    const formData = new FormData();
+    formData.append('name', build.name);
+    formData.append('components', JSON.stringify(components));
+    
+    if (this.selectedImage) {
+      formData.append('image', this.selectedImage);
+    }
 
-    const buildData = {
-      name: build.name,
-      components: this.components
-    };
-
-    this.pcBuildService.editBuild(buildData, this.id).subscribe({
+    this.pcBuildService.editBuild(formData, this.id).subscribe({
       next: () => this.router.navigate(['builds-list']),
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error.message;

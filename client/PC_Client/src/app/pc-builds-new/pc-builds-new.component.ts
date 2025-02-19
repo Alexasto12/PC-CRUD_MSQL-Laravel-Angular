@@ -22,6 +22,7 @@ export class PcBuildsNewComponent implements OnInit {
   storages: IpcComponent[] = [];
   cases: IpcComponent[] = [];
   psus: IpcComponent[] = [];
+  selectedImage: File | null = null;
 
   constructor(
     private ruta: ActivatedRoute,
@@ -48,8 +49,12 @@ export class PcBuildsNewComponent implements OnInit {
     console.log(this.gpus);
   }
 
-
-  
+  onImageSelect(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+    }
+  }
 
   onSubmit(build: any) {
     this.components = [];
@@ -61,12 +66,15 @@ export class PcBuildsNewComponent implements OnInit {
     if (build.storage) this.components.push(build.storage);
 
 
-    const buildData = {
-      name: build.name,
-      components: this.components
-    };
+    const formData = new FormData();
+    formData.append('name', build.name);
+    formData.append('components', JSON.stringify(this.components));
+    
+    if (this.selectedImage) {
+      formData.append('image', this.selectedImage);
+    }
 
-    this.pcBuildService.createBuild(buildData).subscribe({
+    this.pcBuildService.createBuild(formData).subscribe({
       next: () => this.router.navigate(['builds-list']),
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error.message;

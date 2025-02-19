@@ -21,7 +21,7 @@ Route::get('/components/type/{type}', [PcComponent::class, 'showByType']);
 Route::get('/builds', [PcBuild::class, 'index']);
 Route::get('/builds/{id}', [PcBuild::class, 'show']);
 Route::post('/builds', [PcBuild::class, 'store']);
-Route::put('/builds/{id}', [PcBuild::class, 'update']);
+Route::post('/builds/{id}', [PcBuild::class, 'update']);
 Route::delete('/builds/{id}', [PcBuild::class, 'destroy']);
 
 
