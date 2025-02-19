@@ -1,0 +1,217 @@
+.panel {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1600px;
+  animation: panelFadeIn 0.5s ease-out;
+}
+
+.panel-heading {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  font-size: 1.5em;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  animation: headerGlow 3s infinite;
+}
+
+.table {
+  height: 100%;
+  color: #ecf0f1;
+  background-color: #2d2d2d;
+  animation: tableFadeIn 0.3s ease-out;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 0.9rem;
+}
+
+.table thead th {
+  background-color: #34495e;
+  color: #ecf0f1;
+  border-bottom: 2px solid #3498db;
+  position: relative;
+  overflow: hidden;
+  animation: headerSlideIn 0.3s ease-out;
+}
+
+.table thead th::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  animation: headerGlow 2s infinite;
+}
+
+.table tbody tr {
+  transition: all 0.3s ease;
+  animation: rowFadeIn 0.5s ease-out backwards;
+}
+
+.table tbody tr:nth-child(n) {
+  animation-delay: calc(0.1s * var(--i, 0));
+}
+
+.table tbody tr:hover {
+  color: #ecf0f1 !important;
+  background-color: #3a3a3a;
+  transform: translateX(10px);
+}
+
+.table td, .table th {
+  padding: 0.5rem;
+}
+
+.table td {
+  vertical-align: middle;
+  border-top: 1px solid #404040;
+}
+
+.btn {
+  margin: 5px;
+  transition: all 0.3s;
+}
+
+.btn-danger {
+  background-color: #c0392b;
+  border: none;
+}
+.table td:hover {
+    color: #ecf0f1;
+  }
+
+.btn-danger:hover {
+  background-color: #e74c3c;
+  transform: scale(1.05);
+}
+
+.btn-warning {
+  background-color: #f39c12;
+  border: none;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #f1c40f;
+  transform: scale(1.05);
+}
+
+.table-responsive {
+  padding: 1rem;
+}
+
+h4 {
+  color: #ecf0f1;
+  padding: 20px;
+  text-align: center;
+}
+
+.filter-section {
+  padding: 1rem;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  animation: filterSlideDown 0.5s ease-out;
+}
+
+.btn-filter {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  border: 1px solid #34495e;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-filter:hover {
+  background-color: #34495e;
+  border-color: #3498db;
+  transform: translateY(-2px);
+}
+
+.btn-filter i {
+  margin-left: 0.5rem;
+}
+
+@keyframes tableFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes headerGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes panelFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes headerSlideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes filterSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -43,7 +43,6 @@ class PcBuild extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'image' => 'nullable|string',
             'components' => 'required|array'
         ]);
 
@@ -51,7 +50,6 @@ class PcBuild extends Controller
         try {
             $build = PcBuildModel::create([
                 'name' => $validated['name'],
-                'image' => $validated['image']
             ]);
 
             $build->components()->attach($validated['components']);
@@ -61,6 +59,41 @@ class PcBuild extends Controller
             $build->price = $build->setPrice();
             
             return response()->json($build, 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    public function destroy($id)
+    {
+        $build = PcBuildModel::findOrFail($id);
+        $build->components()->detach();
+        $build->delete();
+        return response()->noContent();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $build = PcBuildModel::findOrFail($id);
+        
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'components' => 'required|array'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $build->update([
+                'name' => $validated['name'],
+            ]);
+
+            $build->components()->sync($validated['components']);
+            DB::commit();
+            
+            $build->load('components');
+            $build->price = $build->setPrice();
+            
+            return response()->json($build, 200);
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], 500);

@@ -1,1 +1,30 @@
-<p>pc-components-edit works!</p>
+<h3>Edit Component</h3>
+<div class="container">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input class="form-control" formControlName="name" id="name">
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" formControlName="price" id="price">
+        </div>
+
+        <div class="form-group">
+            <label for="type">Component Type:</label>
+            <select class="form-control" formControlName="type" id="type">
+                <option value="CPU">CPU</option>
+                <option value="GPU">Graphics Card</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="RAM">RAM</option>
+                <option value="Storage">Storage</option>
+                <option value="PSU">Power Supply</option>
+                <option value="Case">Case</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    </form>
+</div>

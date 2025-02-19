@@ -13,17 +13,20 @@ export class PcComponentDataService {
   public getData(): Observable<HttpResponse<IpcComponent[]>>  {
   return this._http.get<IpcComponent[]>('api/components',    { observe: 'response' });
   }
-  public getDataById(id: number): Observable<IpcComponent> {
+  public getDataById(id: string): Observable<IpcComponent> {
     return this._http.get<IpcComponent>('api/components/' + id);
   }
-  public deleteData(id: number): Observable<any> {
+  public deleteComponent(id: string): Observable<any> {
     return this._http.delete('api/components/' + id);
   }
   public createPcComponent(pcComponent: IpcComponent | FormData): Observable<IpcComponent> {
     return this._http.post<IpcComponent>('api/components', pcComponent);
   }
-  public putData(pcComponent: IpcComponent): Observable<IpcComponent> {
-    return this._http.put<IpcComponent>('api/components/' + pcComponent.id, pcComponent);
+  public putData(pcComponent: IpcComponent, id: any): Observable<IpcComponent> {
+    return this._http.put<IpcComponent>('api/components/' + id, pcComponent);
   }
 
+  public getComponentbyType(type: string): Observable<IpcComponent[]> {
+    return this._http.get<IpcComponent[]>('api/components/type/' + type);
+  }
 }

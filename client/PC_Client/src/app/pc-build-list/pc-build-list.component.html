@@ -2,6 +2,16 @@
     <div class="panel-heading">
       {{listTitle}}
     </div>
+    <div class="filter-section">
+      <button class="btn btn-filter" (click)="sortBuilds('name')">
+        Sort by Name
+        <i *ngIf="sortField === 'name'" class="fas fa-sort-{{sortOrder === 'asc' ? 'up' : 'down'}}"></i>
+      </button>
+      <button class="btn btn-filter" (click)="sortBuilds('price')">
+        Sort by Price
+        <i *ngIf="sortField === 'price'" class="fas fa-sort-{{sortOrder === 'asc' ? 'up' : 'down'}}"></i>
+      </button>
+    </div>
     <div *ngIf="pcBuilds.length==0">
       <h4>Not found</h4>
     </div>
@@ -9,7 +19,6 @@
     <table class="table">
       <thead>
         <tr>
-        <th>Foto</th>
           <th>Name</th>
           <th>Price</th>
           <th>Components</th>
@@ -17,8 +26,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let pcBuild of pcBuilds">
-          <td>{{pcBuild.image}}</td>
-          <td>{{pcBuild.name}}</td>
+          <td>{{pcBuild.name}}
+            <button (click)="deleteBuild(pcBuild.id)" class="btn btn-danger">ELIMINAR</button>
+            <button [routerLink]="['/edit-build/',pcBuild.id]" class="btn btn-warning">EDITAR</button>
+          </td>
           <td>{{pcBuild.price}}</td>
             <td>
             <span *ngFor="let component of objectValues(pcBuild.components)">{{component.name}}<br> </span>

@@ -1,5 +1,5 @@
 export interface IpcComponent {
-    id: number;
+    id: string;
     name: string;
     price: number;
     type: string;

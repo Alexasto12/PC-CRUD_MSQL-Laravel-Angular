@@ -10,8 +10,9 @@ import { PcComponentsNewComponent } from './pc-components-new/pc-components-new.
 import { PcBuildsNewComponent } from './pc-builds-new/pc-builds-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PcBuildsNEditComponent } from './pc-builds-nedit/pc-builds-nedit.component';
 import { PcComponentsEditComponent } from './pc-components-edit/pc-components-edit.component';
+import { PcBuildsEditComponent } from './pc-builds-edit/pc-builds-edit.component';
+import { PHomeComponent } from './phome/phome.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,9 @@ import { PcComponentsEditComponent } from './pc-components-edit/pc-components-ed
     PcBuildListComponent,
     PcComponentsNewComponent,
     PcBuildsNewComponent,
-    PcBuildsNEditComponent,
-    PcComponentsEditComponent
+    PcBuildsEditComponent,
+    PcComponentsEditComponent,
+    PHomeComponent,
   ],
   imports: [
     BrowserModule,

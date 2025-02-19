@@ -25,6 +25,6 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
+        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     </form>
 </div>
-<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>

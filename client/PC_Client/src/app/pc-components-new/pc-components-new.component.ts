@@ -41,7 +41,7 @@ export class PcComponentsNewComponent {
         return this.router.navigate(['components-list']);
       },
       error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error.message;
         console.error('Error:', error);
         return this.errorMessage;
       }

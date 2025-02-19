@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { PcBuildDataService } from '../pc-build-data.service';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { IpcComponent } from '../interfaces/ipc-component';
+import { PcBuildDataService } from '../pc-build-data.service';
 
 @Component({
-  selector: 'app-pc-builds-new',
-  templateUrl: './pc-builds-new.component.html',
+  selector: 'app-pc-builds-edit',
   standalone: false,
-  styleUrls: ['./pc-builds-new.component.css']
+  templateUrl: './pc-builds-edit.component.html',
+  styleUrl: './pc-builds-edit.component.css'
 })
-export class PcBuildsNewComponent implements OnInit {
+export class PcBuildsEditComponent {
+  id: string |null | undefined;
   myForm: FormGroup;
   errorMessage: string = '';
   components: any[] = [];
@@ -24,28 +25,48 @@ export class PcBuildsNewComponent implements OnInit {
   psus: IpcComponent[] = [];
 
   constructor(
-    private ruta: ActivatedRoute,
+    private ruta : ActivatedRoute, 
     private pcBuildService: PcBuildDataService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
     this.myForm = new FormGroup({});
   }
-
+ 
   ngOnInit() {
-    
     this.myForm = this.formBuilder.group({
       name: [null],
       cpu: [null],
-      gpu: [null],
-      motherboard: [null],
+      gpu: [null],  
+      motherboard:[null],
       memory: [null],
       storage: [null],
       case: [null],
       psu: [null],
     });
+   this.id = this.ruta.snapshot.paramMap.get('id');
+
+   this.pcBuildService.getDadesById(this.id).subscribe({
+    next: (data: any) => {
+      this.myForm.patchValue({
+        name: data.body.name,
+        cpu: data.body.components.find((component: IpcComponent) => component.type === 'CPU')?.id,
+        gpu: data.body.components.find((component: IpcComponent) => component.type === 'GPU')?.id,
+        motherboard: data.body.components.find((component: IpcComponent) => component.type === 'Motherboard')?.id,
+        memory: data.body.components.find((component: IpcComponent) => component.type === 'RAM')?.id,
+        storage: data.body.components.find((component: IpcComponent) => component.type === 'Storage')?.id,
+        case: data.body.components.find((component: IpcComponent) => component.type === 'Case')?.id,
+        psu: data.body.components.find((component: IpcComponent) => component.type === 'PSU')?.id 
+      });
+    },
+    error: (error: HttpErrorResponse) => {
+      this.errorMessage = error.message;
+      console.error('Error:', error);
+    }
+  });  
     this.getAllComponents();
     console.log(this.gpus);
+    console.log(this.id);
   }
 
 
@@ -59,6 +80,8 @@ export class PcBuildsNewComponent implements OnInit {
     if (build.motherboard) this.components.push(build.motherboard);
     if (build.memory) this.components.push(build.memory);
     if (build.storage) this.components.push(build.storage);
+    if (build.case) this.components.push(build.case);
+    if (build.psu) this.components.push(build.psu);
 
 
     const buildData = {
@@ -66,7 +89,7 @@ export class PcBuildsNewComponent implements OnInit {
       components: this.components
     };
 
-    this.pcBuildService.createBuild(buildData).subscribe({
+    this.pcBuildService.editBuild(buildData, this.id).subscribe({
       next: () => this.router.navigate(['builds-list']),
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error.message;
@@ -93,4 +116,5 @@ export class PcBuildsNewComponent implements OnInit {
       }
     });
   }
+
 }

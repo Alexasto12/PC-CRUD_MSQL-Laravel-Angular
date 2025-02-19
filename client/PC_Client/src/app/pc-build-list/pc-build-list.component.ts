@@ -12,6 +12,9 @@ export class PcBuildListComponent {
 listTitle = 'PC Build List';
 pcBuilds: IpcBuild[]=[];
 objectValues = Object.values;
+sortField: string = 'name';
+sortOrder: 'asc' | 'desc' = 'asc';
+
 constructor(private pcBuildsService: PcBuildDataService
 ){ }
       ngOnInit() {
@@ -22,6 +25,35 @@ constructor(private pcBuildsService: PcBuildDataService
         if (resp.body) {
           this.pcBuilds = resp.body;
         }
+        });
+      }
+      deleteBuild(id: string) {
+        this.pcBuildsService.deleteBuild(id).subscribe(resp => {
+          console.log(resp);
+          this.pcBuildsService.getData().subscribe(resp => {
+            console.log(resp.body);
+            if (resp.body) {
+              this.pcBuilds = resp.body;
+            }
+          });
+        });
+      }
+
+      sortBuilds(field: string) {
+        if (this.sortField === field) {
+          this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+          this.sortField = field;
+          this.sortOrder = 'asc';
+        }
+    
+        this.pcBuilds.sort((a, b) => {
+          const valueA = a[field];
+          const valueB = b[field];
+          
+          if (valueA < valueB) return this.sortOrder === 'asc' ? -1 : 1;
+          if (valueA > valueB) return this.sortOrder === 'asc' ? 1 : -1;
+          return 0;
         });
       }
     }

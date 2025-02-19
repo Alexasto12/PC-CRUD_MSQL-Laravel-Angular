@@ -1,26 +1,42 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-      {{listTitle}}
+        {{listTitle}}
     </div>
-    <div *ngIf="pcComponents.length==0">
-      <h4>Not found</h4>
+    
+    <div class="filter-section">
+        <select class="form-control" [(ngModel)]="selectedType" (change)="filterByType(selectedType)">
+            <option *ngFor="let type of componentTypes" [value]="type">
+                {{type}}
+            </option>
+        </select>
     </div>
-    <div *ngIf="pcComponents.length>0" class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let pcComponent of pcComponents">
-          <td>{{pcComponent.name}}</td>
-          <td>{{pcComponent.price}}</td>
-          <td>{{pcComponent.type}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div *ngIf="filteredComponents.length==0">
+        <h4>Not found</h4>
     </div>
-  </div>
+    
+    <div *ngIf="filteredComponents.length>0" class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pcComponent of filteredComponents">
+                    <td>
+                        {{pcComponent.name}}
+                        
+                        <button (click)="deleteComponent(pcComponent.id)" class="btn btn-danger">DELETE</button>
+                       
+                        <button [routerLink]="['/edit-component/',pcComponent.id]" class="btn btn-warning">UPDATE</button>
+                    </td>
+                    <td>{{pcComponent.price}}</td>
+                    <td>{{pcComponent.type}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

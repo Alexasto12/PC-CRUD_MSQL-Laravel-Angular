@@ -12,7 +12,19 @@ import { IpcComponent } from '../interfaces/ipc-component';
 export class PcComponentsListComponent {
   listTitle = 'PC Components List';
   pcComponents: IpcComponent[] = [];
+  filteredComponents: IpcComponent[] = [];
+  selectedType: string = 'All';  // Set default value to 'All'
 
+  componentTypes = [
+    'All',
+    'CPU',
+    'GPU', 
+    'Motherboard',
+    'RAM',
+    'Storage',
+    'Case',
+    'PSU'
+  ];
 
   constructor(private pcComponentsService: PcComponentDataService) { }
 
@@ -22,7 +34,34 @@ export class PcComponentsListComponent {
       console.log(resp.body);
       if (resp.body) {
         this.pcComponents = resp.body;
+        this.filterByType(this.selectedType); // Apply initial filter
       }
     });
+  }
+
+  deleteComponent(id: string) {
+    this.pcComponentsService.deleteComponent(id).subscribe({
+      next: () => {
+        this.pcComponentsService.getData().subscribe(resp => {
+          if (resp.body) {
+            this.pcComponents = resp.body;
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error deleting component:', error);
+      }
+    });
+  }
+
+  filterByType(type: string) {
+    this.selectedType = type;
+    if (type === 'All') {
+      this.filteredComponents = this.pcComponents;
+    } else {
+      this.filteredComponents = this.pcComponents.filter(component => 
+        component.type === type
+      );
+    }
   }
 }

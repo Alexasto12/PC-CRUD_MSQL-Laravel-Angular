@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PcBuildsNEditComponent } from './pc-builds-nedit.component';
+import { PcBuildsEditComponent } from './pc-builds-edit.component';
 
-describe('PcBuildsNEditComponent', () => {
-  let component: PcBuildsNEditComponent;
-  let fixture: ComponentFixture<PcBuildsNEditComponent>;
+describe('PcBuildsEditComponent', () => {
+  let component: PcBuildsEditComponent;
+  let fixture: ComponentFixture<PcBuildsEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PcBuildsNEditComponent]
+      declarations: [PcBuildsEditComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PcBuildsNEditComponent);
+    fixture = TestBed.createComponent(PcBuildsEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

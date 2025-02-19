@@ -1,0 +1,138 @@
+.navbar {
+  background-color: #2c3e50 !important;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  animation: navbarFadeIn 0.5s ease-out;
+  position: relative;
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #2ecc71, #3498db);
+  animation: navbarGlow 3s infinite;
+}
+
+.navbar-brand {
+  color: #ecf0f1 !important;
+  font-weight: bold;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(45deg, #3498db, #2ecc71);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  animation: titleGlow 2s ease-in-out infinite;
+}
+
+.navbar-brand::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  background: #3498db;
+  transition: 0.5s;
+}
+
+.navbar-brand::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover::before {
+  left: 0;
+}
+
+.navbar-brand:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-link {
+  color: #ecf0f1 !important;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: #3498db;
+  transition: 0.3s;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: #3498db !important;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: #3498db !important;
+  font-weight: bold;
+}
+
+.navbar-toggler {
+  border-color: #ecf0f1;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(236, 240, 241, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@keyframes navbarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes navbarGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(52, 152, 219, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.5));
+  }
+}

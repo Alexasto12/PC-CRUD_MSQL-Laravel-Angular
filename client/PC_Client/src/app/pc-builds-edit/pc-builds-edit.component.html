@@ -1,4 +1,4 @@
-<h3>New PC Build</h3>
+<h3>Edit PC Build</h3>
 <div class="container">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
         <div class="form-group">
@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="cpu">CPU:</label>
             <select class="form-control" formControlName="cpu" id="cpu">
-                <option value=""disabled selected>Select CPU</option>
+                <option value="">Select CPU</option>
                 <option *ngFor="let cpu of cpus" [value]="cpu.id">
                     {{cpu.name}} - ${{cpu.price}}
                 </option>
@@ -19,7 +19,7 @@
         <div class="form-group">
             <label for="gpu">GPU:</label>
             <select class="form-control" formControlName="gpu" id="gpu">
-                <option value=""disabled selected>Select GPU</option>
+                <option value="">Select GPU</option>
                 <option *ngFor="let gpu of gpus" [value]="gpu.id">
                     {{gpu.name}} - ${{gpu.price}}
                 </option>
@@ -29,7 +29,7 @@
         <div class="form-group">
             <label for="motherboard">Motherboard:</label>
             <select class="form-control" formControlName="motherboard" id="motherboard">
-                <option value=""disabled selected>Select Motherboard</option>
+                <option value="">Select Motherboard</option>
                 <option *ngFor="let mb of motherboards" [value]="mb.id">
                     {{mb.name}} - ${{mb.price}}
                 </option>
@@ -39,7 +39,7 @@
         <div class="form-group">
             <label for="memory">Memory:</label>
             <select class="form-control" formControlName="memory" id="memory">
-                <option value=""disabled selected>Select Memory</option>
+                <option value="">Select Memory</option>
                 <option *ngFor="let mem of memories" [value]="mem.id">
                     {{mem.name}} - ${{mem.price}}
                 </option>
@@ -49,7 +49,7 @@
         <div class="form-group">
             <label for="storage">Storage:</label>
             <select class="form-control" formControlName="storage" id="storage">
-                <option value="" disabled selected>Select Storage</option>
+                <option value="">Select Storage</option>
                 <option *ngFor="let storage of storages" [value]="storage.id">
                     {{storage.name}} - ${{storage.price}}
                 </option>
@@ -59,7 +59,7 @@
         <div class="form-group">
             <label for="case">Case:</label>
             <select class="form-control" formControlName="case" id="case">
-                <option value="" disabled selected>Select Case</option>
+                <option value="">Select Case</option>
                 <option *ngFor="let case of cases" [value]="case.id">
                     {{case.name}} - ${{case.price}}
                 </option>
@@ -69,13 +69,14 @@
         <div class="form-group">
             <label for="psu">Power Supply:</label>
             <select class="form-control" formControlName="psu" id="psu">
-                <option value="" disabled selected>Select PSU</option>
+                <option value="">Select PSU</option>
                 <option *ngFor="let psu of psus" [value]="psu.id">
                     {{psu.name}} - ${{psu.price}}
                 </option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Create Build</button>
+
+        <button type="submit" class="btn btn-primary mt-3">Update Build</button>
         <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
     </form>
 </div>

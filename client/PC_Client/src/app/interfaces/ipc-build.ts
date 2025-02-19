@@ -1,7 +1,7 @@
 export interface IpcBuild {
-    id: number;
+    [key: string]: any;
+    id: string ;
     name: string;
     components: JSON;
-    price: number;
-    image: string | null;
+    price: number | undefined;
 }

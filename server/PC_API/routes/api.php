@@ -15,11 +15,11 @@ Route::get('/components/{id}', [PcComponent::class, 'show']);
 Route::post('/components', [PcComponent::class, 'store']);
 Route::put('/components/{id}', [PcComponent::class, 'update']);
 Route::delete('/components/{id}', [PcComponent::class, 'destroy']);
+Route::get('/components/type/{type}', [PcComponent::class, 'showByType']);
 
 // PC Build routes
 Route::get('/builds', [PcBuild::class, 'index']);
 Route::get('/builds/{id}', [PcBuild::class, 'show']);
-Route::get('/builds/{type}', [PcBuild::class, 'showByType']);
 Route::post('/builds', [PcBuild::class, 'store']);
 Route::put('/builds/{id}', [PcBuild::class, 'update']);
 Route::delete('/builds/{id}', [PcBuild::class, 'destroy']);
